@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>정육 수율 계산기</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>정육 수율 계산기</h1>
+    <p class="subtitle">원육 발골 작업 기록 및 수율 계산</p>
+
+
+    <!-- 납품 정보 -->
+    <section class="card">
+
+        <h2>납품 정보</h2>
+
+        <div class="form-group">
+            <label>납품회사</label>
+            <input
+                type="text"
+                id="supplier"
+                placeholder="예: ○○축산"
+            >
+        </div>
+
+        <div class="form-group">
+            <label>납품받은 날짜</label>
+            <input
+                type="date"
+                id="receivedDate"
+            >
+        </div>
+
+        <div class="form-row">
+
+            <div class="form-group">
+                <label>축종</label>
+
+                <select id="species" onchange="updateGradeOptions()">
+                    <option value="소">소</option>
+                    <option value="돼지">돼지</option>
+                </select>
+
+            </div>
+
+            <div class="form-group">
+                <label>암수</label>
+
+                <select id="sex">
+                    <option value="암">암</option>
+                    <option value="수">수</option>
+                    <option value="거세">거세</option>
+                </select>
+
+            </div>
+
+        </div>
+
+
+        <div class="form-group">
+            <label>등급</label>
+
+            <select id="grade">
+            </select>
+
+        </div>
+
+    </section>
+
+
+    <!-- 매입 정보 -->
+    <section class="card">
+
+        <h2>매입 정보</h2>
+
+        <div class="form-group">
+
+            <label>원육 중량 (kg)</label>
+
+            <input
+                type="number"
+                id="rawWeight"
+                placeholder="예: 420.5"
+                step="0.1"
+                min="0"
+                oninput="calculate()"
+            >
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label>매입 금액 (원)</label>
+
+            <input
+                type="number"
+                id="purchasePrice"
+                placeholder="예: 5800000"
+                step="1000"
+                min="0"
+                oninput="calculate()"
+            >
+
+        </div>
+
+    </section>
+
+
+    <!-- 발골 결과 -->
+    <section class="card">
+
+        <h2>발골 결과</h2>
+
+
+        <div class="form-group">
+            <label>등심 (kg)</label>
+            <input type="number" id="sirloin" step="0.1" min="0" oninput="calculate()">
+        </div>
+
+
+        <div class="form-group">
+            <label>안심 (kg)</label>
+            <input type="number" id="tenderloin" step="0.1" min="0" oninput="calculate()">
+        </div>
+
+
+        <div class="form-group">
+            <label>채끝 (kg)</label>
+            <input type="number" id="striploin" step="0.1" min="0" oninput="calculate()">
+        </div>
+
+
+        <div class="form-group">
+            <label>갈비 (kg)</label>
+            <input type="number" id="ribs" step="0.1" min="0" oninput="calculate()">
+        </div>
+
+
+        <div class="form-group">
+            <label>우둔 (kg)</label>
+            <input type="number" id="round" step="0.1" min="0" oninput="calculate()">
+        </div>
+
+
+        <div class="form-group">
+            <label>설도 (kg)</label>
+            <input type="number" id="rump" step="0.1" min="0" oninput="calculate()">
+        </div>
+
+
+        <div class="form-group">
+            <label>잡육 (kg)</label>
+            <input type="number" id="trimmings" step="0.1" min="0" oninput="calculate()">
+        </div>
+
+
+        <hr>
+
+
+        <h3>부산물</h3>
+
+
+        <div class="form-group">
+            <label>지방 (kg)</label>
+            <input type="number" id="fat" step="0.1" min="0" oninput="calculate()">
+        </div>
+
+
+        <div class="form-group">
+            <label>뼈 (kg)</label>
+            <input type="number" id="bone" step="0.1" min="0" oninput="calculate()">
+        </div>
+
+    </section>
+
+
+    <!-- 계산 결과 -->
+    <section class="result-card">
+
+        <h2>계산 결과</h2>
+
+
+        <div class="result-row">
+
+            <span>정육 총중량</span>
+
+            <strong>
+                <span id="totalMeat">0.0</span> kg
+            </strong>
+
+        </div>
+
+
+        <div class="result-row highlight">
+
+            <span>정육 수율</span>
+
+            <strong>
+                <span id="yieldRate">0.0</span> %
+            </strong>
+
+        </div>
+
+
+        <div class="result-row">
+
+            <span>부산물 총중량</span>
+
+            <strong>
+                <span id="byproductWeight">0.0</span> kg
+            </strong>
+
+        </div>
+
+
+        <div class="result-row">
+
+            <span>미산출량</span>
+
+            <strong>
+                <span id="unaccountedWeight">0.0</span> kg
+            </strong>
+
+        </div>
+
+
+        <div class="result-row">
+
+            <span>정육 kg당 원가</span>
+
+            <strong>
+                <span id="meatCost">0</span> 원
+            </strong>
+
+        </div>
+
+
+        <div id="warning" class="warning"></div>
+
+    </section>
+
+</div>
+
+
+<script src="app.js"></script>
+
+</body>
+</html>
